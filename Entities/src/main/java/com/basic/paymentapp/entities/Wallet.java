@@ -19,10 +19,12 @@ public class Wallet {
     public String walletid;
     public String bankaccount;
     public Double balance;
+    public String bankid;
 
-    public Wallet(String walletid, String bankaccount) {
+    public Wallet(String walletid, String bankaccount,String bankid) {
         this.walletid = walletid;
         this.bankaccount = bankaccount;
         this.balance = 0.0;
+        this.bankid=bankid;
     }
 }
