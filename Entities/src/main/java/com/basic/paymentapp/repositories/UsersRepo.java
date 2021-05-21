@@ -1,6 +1,6 @@
-package com.basic.paytmapp.repositories;
+package com.basic.paymentapp.repositories;
 
-import com.basic.paytmapp.entities.Users;
+import com.basic.paymentapp.entities.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

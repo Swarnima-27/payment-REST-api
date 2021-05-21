@@ -1,4 +1,4 @@
-package com.basic.paytmapp.entities;
+package com.basic.paymentapp.entities;
 
 import lombok.*;
 

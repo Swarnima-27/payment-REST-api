@@ -1,4 +1,4 @@
-package com.basic.paytmapp.exceptions;
+package com.basic.paymentapp.exceptions;
 
 public class NotFoundException extends RuntimeException {
     public  NotFoundException(String message)

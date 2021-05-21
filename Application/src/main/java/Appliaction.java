@@ -7,9 +7,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Component;
 
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
-@ComponentScan(basePackages = "com.basic.paytmapp.*")
-@EntityScan(basePackages = "com.basic.paytmapp.*")
-@EnableJpaRepositories(basePackages = "com.basic.paytmapp.*")
+@ComponentScan(basePackages = "com.basic.paymentapp.*")
+@EntityScan(basePackages = "com.basic.paymentapp.*")
+@EnableJpaRepositories(basePackages = "com.basic.paymentapp.*")
 public class Appliaction {
     public static void main(String args[]) throws Exception
     {
