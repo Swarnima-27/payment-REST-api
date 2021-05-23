@@ -6,7 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Component;
 
-@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
+@SpringBootApplication
 @ComponentScan(basePackages = "com.basic.paymentapp.*")
 @EntityScan(basePackages = "com.basic.paymentapp.*")
 @EnableJpaRepositories(basePackages = "com.basic.paymentapp.*")

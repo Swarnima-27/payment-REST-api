@@ -12,11 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
-@RequestMapping(value="/onboard")
 public class OnboardController {
 
     private static final Logger log= LoggerFactory.getLogger(OnboardController.class);
@@ -28,7 +26,8 @@ public class OnboardController {
     BankServiceImpl bankService;
     @GetMapping(value = "/home")
     public String home()
-    {return "HOME PAGE";}
+    {log.info("arUNNING HOME PAGE");
+        return "HOME PAGE";}
 
     @GetMapping(value="/users")
     public ResponseEntity<List<Response>> getAlldata()

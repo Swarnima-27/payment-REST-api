@@ -1,0 +1,8 @@
+com/basic/paymentapp/OsController/OnboardController.class
+com/basic/paymentapp/OnboardService/ServiceImpl/WalletServiceImpl.class
+com/basic/paymentapp/OnboardService/ServiceInterface/UserServiceInt.class
+com/basic/paymentapp/OsController/WalletController.class
+com/basic/paymentapp/OnboardService/ServiceInterface/BankServiceInt.class
+com/basic/paymentapp/OnboardService/ServiceImpl/BankServiceImpl.class
+com/basic/paymentapp/OnboardService/ServiceInterface/WalletServiceInt.class
+com/basic/paymentapp/OnboardService/ServiceImpl/UserServiceImpl.class

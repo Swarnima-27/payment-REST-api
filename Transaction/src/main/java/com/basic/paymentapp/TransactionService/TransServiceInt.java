@@ -8,9 +8,9 @@ import java.util.List;
 
 @Service
 public interface TransServiceInt {
-     boolean addmoney(String walletid,Double amount);
-     boolean transfermoney(String to_walletid,String from_walletid,Double amount);
-     Double checkbalance(String walletid);
-     List<Transactions> findbyPayerid(String payerid);
-     List<Transactions> findbyPayeeid(String payeeid);
+    public boolean addmoney(String walletid,Double amount);
+    public boolean transfermoney(String to_walletid,String from_walletid,Double amount);
+    public Double checkbalance(String walletid);
+    public List<Transactions> findbyPayerid(String payerid);
+    public List<Transactions> findbyPayeeid(String payeeid);
 }
