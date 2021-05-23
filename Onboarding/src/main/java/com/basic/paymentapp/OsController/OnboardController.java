@@ -26,6 +26,9 @@ public class OnboardController {
 
     @Autowired
     BankServiceImpl bankService;
+    @GetMapping(value = "/home")
+    public String home()
+    {return "HOME PAGE";}
 
     @GetMapping(value="/users")
     public ResponseEntity<List<Response>> getAlldata()
