@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property name="LOGS" value="logs"/>
+    <logger name="com.basic.paymentapp" level="ALL"/>
+
+    <!-- Console Appender -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%d{yyyy.MM.dd HH:mm:ss.SSS} [%thread] %highlight(%-5level) %cyan(%logger{36}:%L) - %msg%n</pattern>
+        </layout>
+    </appender>
+
+    <!-- File Appender -->
+
+    <appender name="FILE-THREAD" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>{LOGS}/logger.log</file>
+        <encoder class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%d{yyyy.MM.dd HH:mm:ss.SSS} [%thread] %-5level %logger{36}:%L - %msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily rollover. Make sure the path matches the one in the file element or else the rollover logs are placed in the working directory. -->
+            <fileNamePattern>{LOGS}/logger.%d{yyyy-MM-dd}_%i.log</fileNamePattern>
+            <TimeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- rollover if the file size exceeds 50MB -->
+                <MaxFileSize>10MB</MaxFileSize>
+            </TimeBasedFileNamingAndTriggeringPolicy>
+            <!-- keep 30 days' worth of history -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+
+    <logger name="com.basic.paymentapp" level="debug" additivity="false">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE-THREAD"/>
+    </logger>
+
+    <logger name="org.hibernate" level="debug" additivity="false">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE-THREAD"/>
+    </logger>
+
+    <logger name="org.springframework.web" level="debug" additivity="false">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE-THREAD"/>
+    </logger>
+
+</configuration>
