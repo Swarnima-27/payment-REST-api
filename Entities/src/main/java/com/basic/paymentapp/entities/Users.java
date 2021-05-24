@@ -18,5 +18,5 @@ public class Users {
     @Id
     public String phone_number;
 //
-//    private String password;
+    private String password;
 }
