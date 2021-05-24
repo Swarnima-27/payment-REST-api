@@ -11,6 +11,7 @@ import com.basic.paymentapp.repositories.WalletRepo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -27,6 +28,9 @@ public class UserServiceImpl implements UserServiceInt {
 
     @Autowired
     WalletRepo walletRepo;
+//
+//    @Autowired
+//    public BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public List<Response> getAlldata() {
@@ -46,7 +50,7 @@ public class UserServiceImpl implements UserServiceInt {
 
     @Override
     public boolean addUser(Users user) {
-        if(user.getEmail().isEmpty() || user.getFirstname().isEmpty() || user.getPhone_number().isEmpty())
+        if(user.getEmail().isEmpty() || user.getFirstname().isEmpty() || user.getPhone_number().isEmpty() )
             throw new EmptyInputException("Values cannot be null");
         else if(usersRepo.findById(user.getPhone_number()).isPresent())
         {
@@ -55,6 +59,7 @@ public class UserServiceImpl implements UserServiceInt {
         }
         else
         {
+            //user.setPassword(passwordEncoder.encode(user.getPassword()));
             usersRepo.save(user);
             log.info("User Created");
             return true;

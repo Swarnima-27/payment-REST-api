@@ -17,4 +17,6 @@ public class Users {
     public String email;
     @Id
     public String phone_number;
+//
+//    private String password;
 }
