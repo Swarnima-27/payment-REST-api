@@ -11,6 +11,8 @@ import com.basic.paymentapp.repositories.WalletRepo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +35,7 @@ public class UserServiceImpl implements UserServiceInt {
 //    public BCryptPasswordEncoder passwordEncoder;
 
     @Override
+    @Cacheable(cacheNames = "users" )
     public List<Response> getAlldata() {
         List<Response> userlist= new ArrayList<>();
         usersRepo.findAll().forEach(entity->{
@@ -49,6 +52,7 @@ public class UserServiceImpl implements UserServiceInt {
     }
 
     @Override
+    @Cacheable(cacheNames = "users" , key = "#user.phone_number")
     public boolean addUser(Users user) {
         if(user.getEmail().isEmpty() || user.getFirstname().isEmpty() || user.getPhone_number().isEmpty() )
             throw new EmptyInputException("Values cannot be null");
@@ -67,6 +71,7 @@ public class UserServiceImpl implements UserServiceInt {
     }
 
     @Override
+    @CachePut(cacheNames = "users" ,key = "#user.phone_number")
     public boolean updateuser(Users user) {
         if(user.getEmail().isEmpty() || user.getFirstname().isEmpty() || user.getPhone_number().isEmpty())
             throw new EmptyInputException("Values cannot be null");
@@ -84,6 +89,7 @@ public class UserServiceImpl implements UserServiceInt {
     }
 
     @Override
+    @Cacheable(cacheNames = "users" , key = "#Phoneno")
     public Users getUserbyId(String Phoneno) {
         Optional<Users> user1=usersRepo.findById(Phoneno);
         if(user1.isPresent())

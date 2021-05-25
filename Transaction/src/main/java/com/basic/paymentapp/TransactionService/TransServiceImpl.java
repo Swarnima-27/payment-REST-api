@@ -10,6 +10,7 @@ import com.basic.paymentapp.repositories.WalletRepo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -30,6 +31,7 @@ public class TransServiceImpl  implements TransServiceInt{
     PartnerBankRepo partnerBankRepo;
 
     @Override
+    @Cacheable(cacheNames = "transaction" , key = "#walletid")
     public boolean addmoney(String walletid, Double amount) {
         log.debug("Process of adding money to wallet initiated");
         if(walletRepo.existsById(walletid)==false)
@@ -64,6 +66,7 @@ public class TransServiceImpl  implements TransServiceInt{
     }
 
     @Override
+    @Cacheable(cacheNames = "transaction" , key = "#from_walletid")
     public boolean transfermoney(String to_walletid, String from_walletid, Double amount) {
         log.info("Transaction in process from " + from_walletid+" to "+ to_walletid);
         if(walletRepo.existsById(from_walletid)==false)
@@ -105,6 +108,7 @@ public class TransServiceImpl  implements TransServiceInt{
     }
 
     @Override
+    @Cacheable(cacheNames = "transaction" ,key = "#walletid")
     public Double checkbalance(String walletid) {
         if(walletRepo.existsById(walletid)==false)
             throw new NotFoundException("Wallet doesn't exists");
@@ -112,11 +116,13 @@ public class TransServiceImpl  implements TransServiceInt{
     }
 
     @Override
+    @Cacheable(cacheNames = "transaction" , key = "#payerid")
     public List<Transactions> findbyPayerid(String payerid) {
         return transactionRepo.findByPayerid(payerid);
     }
 
     @Override
+    @Cacheable(cacheNames = "transaction" , key = "#payeeid")
     public List<Transactions> findbyPayeeid(String payeeid) {
         return transactionRepo.findByPayeeid(payeeid);
     }

@@ -7,6 +7,7 @@ import com.basic.paymentapp.repositories.WalletRepo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,11 +23,13 @@ public class WalletServiceImpl implements WalletServiceInt {
     }
 
     @Override
+    @Cacheable(cacheNames = "wallet" )
     public void save(Wallet wallet) {
         walletRepo.save(wallet);
     }
 
     @Override
+    @Cacheable(cacheNames = "wallet" , key = "#phoneno")
     public Wallet getwallet(String phoneno) {
         if(walletRepo.findById(phoneno).isPresent())
             return walletRepo.findById(phoneno).get();
