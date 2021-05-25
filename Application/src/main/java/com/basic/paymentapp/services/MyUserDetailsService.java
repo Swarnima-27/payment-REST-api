@@ -1,6 +1,7 @@
 package com.basic.paymentapp.services;
 
 import com.basic.paymentapp.entities.Users;
+import com.basic.paymentapp.exceptions.NotValidException;
 import com.basic.paymentapp.repositories.UsersRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
@@ -21,23 +22,17 @@ public class MyUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//       Users user =usersRepo.findByPhonenumber(username);
-//       if(user==null) {
-//           throw new UsernameNotFoundException("Could not find User");
-//        }
-//        return new MyUserDetails(user);
+
         String uname = null;
         String pass=null;
-        Map<String, String> objMap = new HashMap<String, String>();
-        objMap.put("0001", "root1");
-        objMap.put("0002", "root2");
-        objMap.put("0003", "root3");
-        objMap.put("0004", "root4");
-        objMap.put("0005", "root5");
-        for(Map.Entry m : objMap.entrySet())
+        if(usersRepo.existsById(username))
         {
-            uname= (String) m.getKey();
-            pass= (String) m.getValue();
+            uname=usersRepo.findById(username).get().phone_number;
+            pass=usersRepo.findById(username).get().getPassword();
+        }
+        else
+        {
+            throw new NotValidException("Username or password not valid");
         }
         return new User(uname,pass,new ArrayList<>());
     }
