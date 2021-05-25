@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Version;
 
 @Entity
 @Data
@@ -20,6 +21,9 @@ public class Wallet {
     public String bankaccount;
     public Double balance;
     public String bankid;
+    //for optimistic locking
+    @Version
+    private int version;
 
     public Wallet(String walletid, String bankaccount,String bankid) {
         this.walletid = walletid;
