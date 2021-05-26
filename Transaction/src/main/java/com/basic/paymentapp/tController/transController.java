@@ -26,17 +26,14 @@ public class transController {
     TransServiceImpl transService;
 
     @PostMapping(value="/transfer")
-    public ResponseEntity<String> transferMoney(@RequestParam("walletid1") String to_walletid,
+    public ResponseEntity<Transactions> transferMoney(@RequestParam("walletid1") String to_walletid,
                                                 @RequestParam("walletid2") String from_walletid,
                                                 @RequestParam("amount") Double amount)
     {
         if(amount<=0)
             throw new NotValidException("Amount Not Valid");
-        boolean result=transService.transfermoney(to_walletid,from_walletid,amount);
-        if(result)
-            return new ResponseEntity<>("Money transferred", HttpStatus.OK);
-        else
-            throw new TransactionFailedException("Transaction Failed.Something went wrong");
+        Transactions result=transService.transfermoney(to_walletid,from_walletid,amount);
+            return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @GetMapping(value="/balance")
@@ -55,16 +52,13 @@ public class transController {
     }
 
     @PostMapping(value="/addmoney")
-    public ResponseEntity<String> addmoney(@RequestParam("walletid") String walletid,
+    public ResponseEntity<Transactions> addmoney(@RequestParam("walletid") String walletid,
                                            @RequestParam("amount") Double amount)
     {
         if(amount<=0)
             throw new NotValidException("Amount Not Valid");
-        boolean result=transService.addmoney(walletid,amount);
-        if(result)
-            return new ResponseEntity<>("Money added to wallet :" + walletid, HttpStatus.OK);
-        else
-            throw new TransactionFailedException("Transaction Failed.Something went wrong");
+        Transactions result=transService.addmoney(walletid,amount);
+            return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @GetMapping(value = "/transferby")

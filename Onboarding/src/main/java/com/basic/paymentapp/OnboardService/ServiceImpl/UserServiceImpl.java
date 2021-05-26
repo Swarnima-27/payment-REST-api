@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserServiceInt {
     }
 
     @Override
-    @Cacheable(cacheNames = "users" , key = "#user.phone_number")
+    @Cacheable(cacheNames = "users" )
     public boolean addUser(Users user) {
         if(user.getEmail().isEmpty() || user.getFirstname().isEmpty() || user.getPhone_number().isEmpty() )
             throw new EmptyInputException("Values cannot be null");
@@ -71,7 +71,7 @@ public class UserServiceImpl implements UserServiceInt {
     }
 
     @Override
-    @CachePut(cacheNames = "users" ,key = "#user.phone_number")
+    @CachePut(cacheNames = "users" )
     public boolean updateuser(Users user) {
         if(user.getEmail().isEmpty() || user.getFirstname().isEmpty() || user.getPhone_number().isEmpty())
             throw new EmptyInputException("Values cannot be null");
@@ -89,7 +89,7 @@ public class UserServiceImpl implements UserServiceInt {
     }
 
     @Override
-    @Cacheable(cacheNames = "users" , key = "#Phoneno")
+    @Cacheable(cacheNames = "users" )
     public Users getUserbyId(String Phoneno) {
         Optional<Users> user1=usersRepo.findById(Phoneno);
         if(user1.isPresent())

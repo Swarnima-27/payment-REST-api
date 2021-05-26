@@ -29,7 +29,7 @@ public class WalletServiceImpl implements WalletServiceInt {
     }
 
     @Override
-    @Cacheable(cacheNames = "wallet" , key = "#phoneno")
+    @Cacheable(cacheNames = "wallet" )
     public Wallet getwallet(String phoneno) {
         if(walletRepo.findById(phoneno).isPresent())
             return walletRepo.findById(phoneno).get();

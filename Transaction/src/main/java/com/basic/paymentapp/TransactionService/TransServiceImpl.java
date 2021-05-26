@@ -31,15 +31,15 @@ public class TransServiceImpl  implements TransServiceInt{
     PartnerBankRepo partnerBankRepo;
 
     @Override
-    @Cacheable(cacheNames = "transaction" , key = "#walletid")
-    public boolean addmoney(String walletid, Double amount) {
+    @Cacheable(cacheNames = "transaction" )
+    public Transactions addmoney(String walletid, Double amount) {
         log.debug("Process of adding money to wallet initiated");
         if(walletRepo.existsById(walletid)==false)
         {
             throw new NotFoundException("Wallet not found.Doesn't exists");
         }
         String Bid=walletRepo.findById(walletid).get().bankid;
-        if(partnerBankRepo.existsById(walletid))
+        if(partnerBankRepo.existsById(Bid))
         {
             log.info("Requesting bank to access " + walletRepo.findById(walletid).get().bankaccount+" account for transaction");
             log.info("Checking enough balance");
@@ -56,7 +56,7 @@ public class TransServiceImpl  implements TransServiceInt{
             new_transaction.setPayerid(walletRepo.findById(walletid).get().bankaccount);
             new_transaction.setTime(new Timestamp(System.currentTimeMillis()));
             transactionRepo.save(new_transaction);
-            return true;
+            return new_transaction;
         }
         else
         {
@@ -66,8 +66,8 @@ public class TransServiceImpl  implements TransServiceInt{
     }
 
     @Override
-    @Cacheable(cacheNames = "transaction" , key = "#from_walletid")
-    public boolean transfermoney(String to_walletid, String from_walletid, Double amount) {
+    @Cacheable(cacheNames = "transaction" )
+    public Transactions transfermoney(String to_walletid, String from_walletid, Double amount) {
         log.info("Transaction in process from " + from_walletid+" to "+ to_walletid);
         if(walletRepo.existsById(from_walletid)==false)
             throw new NotFoundException("Payer wallet "+from_walletid+" doesn't exists");
@@ -91,7 +91,7 @@ public class TransServiceImpl  implements TransServiceInt{
                 new_transaction.setPayerid(from_walletid);
                 new_transaction.setTime(new Timestamp(System.currentTimeMillis()));
                 transactionRepo.save(new_transaction);
-                return true;
+                return new_transaction;
             }
             else
             {
@@ -108,7 +108,7 @@ public class TransServiceImpl  implements TransServiceInt{
     }
 
     @Override
-    @Cacheable(cacheNames = "transaction" ,key = "#walletid")
+    @Cacheable(cacheNames = "transaction" )
     public Double checkbalance(String walletid) {
         if(walletRepo.existsById(walletid)==false)
             throw new NotFoundException("Wallet doesn't exists");
@@ -116,13 +116,13 @@ public class TransServiceImpl  implements TransServiceInt{
     }
 
     @Override
-    @Cacheable(cacheNames = "transaction" , key = "#payerid")
+    @Cacheable(cacheNames = "transaction" )
     public List<Transactions> findbyPayerid(String payerid) {
         return transactionRepo.findByPayerid(payerid);
     }
 
     @Override
-    @Cacheable(cacheNames = "transaction" , key = "#payeeid")
+    @Cacheable(cacheNames = "transaction" )
     public List<Transactions> findbyPayeeid(String payeeid) {
         return transactionRepo.findByPayeeid(payeeid);
     }
