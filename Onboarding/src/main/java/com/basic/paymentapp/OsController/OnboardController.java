@@ -41,6 +41,13 @@ public class OnboardController {
         log.info("Response of get all users request");
         return new ResponseEntity<List<Response>>(list, HttpStatus.OK);
     }
+    @GetMapping(value="/user")
+    public ResponseEntity<Users> getuserbyID(@RequestParam("phoneno") String phoneno)
+    {
+        log.info("Requesting for details of user with " + phoneno+ " id");
+        Users re_user=userService.getUserbyId(phoneno);
+        return new ResponseEntity<>(re_user,HttpStatus.OK);
+    }
 
     @PostMapping(value = "/user")
     public ResponseEntity<String> addUser(@RequestBody Users user)
